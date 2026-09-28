@@ -1,4 +1,8 @@
-# Rose appearance studio
+# Rose concept room
+
+The homepage is a personal review gallery of six distinct appearance directions: Halo, Petal, Signal, Companion, Ribbon, and Prism. Each changes the form and interaction presentation, rather than simply recoloring the original widget. Local visual examples animate the designs; shortlists are saved only in the current browser and can be copied into a conversation. These concepts do not change production Rose. The user decides which directions are developed and shipped.
+
+The earlier editable appearance studio is preserved at `editor.html`.
 
 A separate design workspace for trying Rose appearances. It starts with the approved smoky glass and copper orb, and includes Pearl, Onyx, and Copper presets. Tune accent color, glass opacity, blur, corners, orb size, and orb tint. Switch canvas backgrounds and visual voice states, view the supplied campaign references, save a browser-local draft, and export CSS.
 
