@@ -1,6 +1,10 @@
 # Rose concept room
 
-The homepage is a personal review gallery of six distinct appearance directions: Halo, Petal, Signal, Companion, Ribbon, and Prism. Each changes the form and interaction presentation, rather than simply recoloring the original widget. Local visual examples animate the designs; shortlists are saved only in the current browser and can be copied into a conversation. These concepts do not change production Rose. The user decides which directions are developed and shipped.
+The homepage is a personal review gallery of 18 appearance directions. The original six are joined by Mercury, Orbit, Aurora, Ember, Porcelain, Terrarium, Monogram, Blueprint, Tide, Totem, Fold, and Lumen. Each changes Rose’s form, material, typography, and motion.
+
+Use direction filters, open an expanded preview, and switch between idle, listening, and speaking states. Chrome, ceramic, and brass are rendered as smooth WebGL sculptures with per-pixel lighting; the remaining material studies use local canvas, SVG, or CSS. Canvas rendering is limited to visible concepts and pauses in background tabs. Reduced-motion preferences show still compositions. No third-party libraries, API keys, or build step are required.
+
+Shortlists remain in the current browser and can be copied into a conversation. Existing picks are preserved. These are appearance and motion studies with simulated conversation; they do not change production Rose. The user decides which directions are developed and shipped.
 
 The earlier editable appearance studio is preserved at `editor.html`.
 
