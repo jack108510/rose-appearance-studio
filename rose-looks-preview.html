@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rose widget looks</title>
+<style>
+  body{min-height:100vh;margin:0;padding:44px;background:radial-gradient(circle at 20% 10%,#382b50,#161820 52%,#101116);color:#fff;font-family:Inter,system-ui,sans-serif}
+  main{max-width:940px;margin:auto}h1{font-size:clamp(36px,7vw,72px);letter-spacing:-.06em;margin:0 0 8px}p{color:#c8c1cf;line-height:1.5;max-width:590px}
+  nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}nav a{padding:10px 16px;border:1px solid #777089;border-radius:999px;color:#f8f5ff;text-decoration:none}nav a[aria-current]{background:#f6eafb;color:#21162c;border-color:#f6eafb}
+  .stage{min-height:430px;margin-top:30px;border:1px solid #6c5d7c;border-radius:28px;background:linear-gradient(135deg,#f7f1ec,#e8e0ea);color:#352d3c;padding:30px;position:relative;overflow:hidden}.stage h2{font-size:30px;letter-spacing:-.04em}.stage p{color:#645a6b}.hint{font-size:13px}
+  @media(max-width:600px){body{padding:22px}.stage{min-height:470px;padding:20px}}
+</style>
+<main>
+  <h1>Rose, three ways.</h1>
+  <p>Same voice and chat layout, different space on the page. These are opt-in looks; Classic remains the default.</p>
+  <nav aria-label="Choose Rose look"><a href="?look=classic" data-look="classic">Classic</a><a href="?look=aura" data-look="aura">Aura orb</a><a href="?look=pill" data-look="pill">Minimal pill</a></nav>
+  <section class="stage"><h2>Sample website</h2><p>The button in the lower right is Rose. Open it to see the compact panel, then switch between voice and chat.</p><p class="hint">Visual preview only: calling and messaging are disabled here.</p></section>
+</main>
+<script>
+  const look = ['classic','aura','pill'].includes(new URLSearchParams(location.search).get('look')) ? new URLSearchParams(location.search).get('look') : 'classic';
+  document.querySelector(`[data-look="${look}"]`).setAttribute('aria-current','page');
+  const widget = document.createElement('script');
+  widget.src = 'wildrose-widget.js';
+  widget.dataset.look = look;
+  widget.dataset.title = 'Rose';
+  widget.dataset.businessName = 'Sample Website';
+  widget.addEventListener('load', () => {
+    const start = document.querySelector('.wr-start-voice');
+    const send = document.querySelector('.wr-send');
+    const input = document.querySelector('.wr-input');
+    if (start) { start.disabled = true; start.textContent = 'Visual preview only'; }
+    if (send) send.disabled = true;
+    if (input) { input.disabled = true; input.placeholder = 'Visual preview only'; }
+  });
+  document.body.appendChild(widget);
+</script>
+</html>
