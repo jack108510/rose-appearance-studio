@@ -8,30 +8,37 @@
   main{max-width:940px;margin:auto}h1{font-size:clamp(36px,7vw,72px);letter-spacing:-.06em;margin:0 0 8px}p{color:#c8c1cf;line-height:1.5;max-width:590px}
   nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}nav a{padding:10px 16px;border:1px solid #777089;border-radius:999px;color:#f8f5ff;text-decoration:none}nav a[aria-current]{background:#f6eafb;color:#21162c;border-color:#f6eafb}
   .stage{min-height:430px;margin-top:30px;border:1px solid #6c5d7c;border-radius:28px;background:linear-gradient(135deg,#f7f1ec,#e8e0ea);color:#352d3c;padding:30px;position:relative;overflow:hidden}.stage h2{font-size:30px;letter-spacing:-.04em}.stage p{color:#645a6b}.hint{font-size:13px}
+  body[data-look="aura"] .wr-ai .wr-fab{width:62px;height:62px;border-radius:50%;background:conic-gradient(from 20deg,#ff813a,#f54168,#8a66ed,#5eb8fa,#ffb266,#ff813a);box-shadow:0 14px 38px #5b2b7c55,0 0 22px #fa729488}
+  body[data-look="aura"] .wr-ai .wr-fab .wr-dot,body[data-look="pill"] .wr-ai .wr-fab .wr-dot{display:none}
+  body[data-look="aura"] .wr-ai .wr-fab:before{inset:7px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#fff1f7,#d881df 32%,#45348c 74%,#202659);mix-blend-mode:normal}
+  body[data-look="aura"] .wr-ai .wr-fab:after{inset:19px;border:0;border-radius:50%;background:radial-gradient(circle at 35% 27%,#fff,#ffc9ea 38%,#8a63c9);filter:blur(1px)}
+  body[data-look="pill"] .wr-ai .wr-fab{width:156px;height:50px;border-radius:999px;background:#201b2c;display:flex;align-items:center;padding:0 13px;gap:9px;box-shadow:0 14px 35px #16112466,0 0 18px #e8689b55}
+  body[data-look="pill"] .wr-ai .wr-fab:before{position:relative;inset:auto;display:block;flex:0 0 34px;width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff5fb,#ff9bc8 27%,#925fce 58%,#3957b8);mix-blend-mode:normal;box-shadow:0 0 13px #f270baaa}
+  body[data-look="pill"] .wr-ai .wr-fab:after{content:"Talk to Rose";position:relative;inset:auto;display:block;border:0;color:#fff;font:750 13px Inter,system-ui,sans-serif;white-space:nowrap}
+  body[data-look="aura"] .wr-ai .wr-panel,body[data-look="pill"] .wr-ai .wr-panel{width:min(350px,calc(100vw - 24px));height:min(540px,calc(100vh - 24px))}
+  body[data-look="aura"] .wr-ai .wr-orb,body[data-look="pill"] .wr-ai .wr-orb{width:105px;height:105px;background:radial-gradient(circle at 35% 27%,#fff,#ffbfdc 22%,#ad73d8 52%,#3d56b7 79%,#ff8c54);box-shadow:0 0 0 10px #a366c321,0 20px 48px #784cbe55}
+  body[data-look="aura"] .wr-ai .wr-orb.listening,body[data-look="pill"] .wr-ai .wr-orb.listening{animation:roseListen 1.9s ease-in-out infinite}
+  body[data-look="aura"] .wr-ai .wr-orb.speaking,body[data-look="pill"] .wr-ai .wr-orb.speaking{animation:roseSpeak .85s ease-in-out infinite;box-shadow:0 0 0 16px #a366c32b,0 20px 58px #784cbe99}
+  @keyframes roseListen{50%{transform:scale(1.06);filter:saturate(1.2)}}@keyframes roseSpeak{25%{transform:scale(1.08,.94)}75%{transform:scale(.95,1.07)}}
+  @media(prefers-reduced-motion:reduce){body[data-look] .wr-ai .wr-orb.listening,body[data-look] .wr-ai .wr-orb.speaking{animation:none}}
   @media(max-width:600px){body{padding:22px}.stage{min-height:470px;padding:20px}}
 </style>
 <main>
   <h1>Rose, three ways.</h1>
-  <p>Same voice and chat layout, different space on the page. These are opt-in looks; Classic remains the default.</p>
+  <p>This is the Rose widget from the live Wildrose site—not a simulation. Try its voice or chat, then compare how each look responds.</p>
   <nav aria-label="Choose Rose look"><a href="?look=classic" data-look="classic">Classic</a><a href="?look=aura" data-look="aura">Aura orb</a><a href="?look=pill" data-look="pill">Minimal pill</a></nav>
-  <section class="stage"><h2>Sample website</h2><p>The button in the lower right is Rose. Open it to see the compact panel, then switch between voice and chat.</p><p class="hint">Visual preview only: calling and messaging are disabled here.</p></section>
+  <section class="stage"><h2>Rose live preview</h2><p>Open Rose in the lower right. Her orb reacts to the real listening and speaking events during a voice call.</p><p class="hint">Voice starts only when you press Start talking and allow microphone access.</p></section>
 </main>
 <script>
   const look = ['classic','aura','pill'].includes(new URLSearchParams(location.search).get('look')) ? new URLSearchParams(location.search).get('look') : 'classic';
+  document.body.dataset.look = look;
   document.querySelector(`[data-look="${look}"]`).setAttribute('aria-current','page');
   const widget = document.createElement('script');
-  widget.src = 'wildrose-widget.js';
-  widget.dataset.look = look;
+  widget.src = 'https://wildroseautomations.ca/wildrose-widget-sandbox.js';
+  widget.dataset.apiBase = 'https://wildrose-widget.wildeautomations.com';
   widget.dataset.title = 'Rose';
-  widget.dataset.businessName = 'Sample Website';
-  widget.addEventListener('load', () => {
-    const start = document.querySelector('.wr-start-voice');
-    const send = document.querySelector('.wr-send');
-    const input = document.querySelector('.wr-input');
-    if (start) { start.disabled = true; start.textContent = 'Visual preview only'; }
-    if (send) send.disabled = true;
-    if (input) { input.disabled = true; input.placeholder = 'Visual preview only'; }
-  });
+  widget.dataset.businessName = 'Wildrose Automations';
+  widget.dataset.logo = 'https://wildroseautomations.ca/logos/wildrose.png';
   document.body.appendChild(widget);
 </script>
 </html>
